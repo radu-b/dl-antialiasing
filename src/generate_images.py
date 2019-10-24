@@ -1,37 +1,94 @@
 #%%
-
-from PIL import Image
-from torchvision import transforms
-from torch.utils.data import *
-import torch
-import matplotlib.pyplot as plt
+from PIL import Image, ImageDraw, ImageDraw2, ImageFont
+import string
+import random
 
 #%%
 
-preprocess = transforms.Compose([transforms.Grayscale(), transforms.ToTensor()])
+fonts = [
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSansMono.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif-Bold.ttf",
+    "/usr/share/fonts/truetype/dejavu/DejaVuSerif.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeMono.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeMonoBold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeMonoBoldOblique.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeMonoOblique.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSans.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansBoldOblique.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSansOblique.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSerif.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSerifBold.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSerifBoldItalic.ttf",
+    "/usr/share/fonts/truetype/freefont/FreeSerifItalic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationMono-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationMono-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationMono-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationMono-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSansNarrow-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSansNarrow-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation/LiberationSerif-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationMono-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationMono-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationMono-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationMono-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSans-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSans-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSans-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSans-Regular.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSerif-Bold.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSerif-BoldItalic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSerif-Italic.ttf",
+    "/usr/share/fonts/truetype/liberation2/LiberationSerif-Regular.ttf",
+]
 
-image = preprocess(Image.open("data/image-aa.png"))
+
+def random_text():
+    letters = "       " + string.digits + string.ascii_letters + string.punctuation
+    return "\n".join(
+        "".join(random.choice(letters) for i in range(20)) for l in range(0, 20)
+    )
+
+
+def random_image():
+    font_size = random.randint(30, 80)
+    font = ImageFont.truetype(random.choice(fonts), font_size)
+    image = Image.new("L", (200, 200), color=(255))
+    draw = ImageDraw.Draw(image)
+
+    x = random.randint(-font_size, font_size)
+    y = random.randint(-font_size, font_size)
+    draw.text((x, y), random_text(), font=font, fill=(0))
+
+    return image
+
 
 #%%
 
-to_image = transforms.ToPILImage()
-*rest, rows, cols = image.shape
-part_size = 200
+random.seed(3)
 
-for index in range(3000):
-    r = torch.randint(rows - part_size, (1,))[0].item()
-    c = torch.randint(cols - part_size, (1,))[0].item()
+for index in range(5000):
+    if index % 100 == 0:
+        print(100 * index / 5000)
 
-    part_y = image[:, r : r + part_size, c : c + part_size]
-    part_x = part_y.clone()
-    part_x[part_x < 0.5] = 0
-    part_x[part_y >= 0.5] = 1
+    image = random_image()
+    image.save(f"data/train/y/{index}.png")
+    image.convert("1", dither=0).save(f"data/train/x/{index}.png")
 
-    part_x_image = to_image(part_x)
-    part_x_image.save(f"data/images-x/{index}.png")
 
-    part_y_image = to_image(part_y)
-    part_y_image.save(f"data/images-y/{index}.png")
+# %%
 
 
 # %%
