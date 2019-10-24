@@ -48,12 +48,18 @@ data.show_batch(ds_type=fv.DatasetType.Valid, rows=2, figsize=(9, 9))
 
 base_loss = fv.F.l1_loss
 
+
+def custom_loss(input, target):
+    mask = (target > 0) * (target < 1)
+    return base_loss(input, target) + base_loss(input[mask], target[mask]) * 100
+
+
 wd = 1e-3
 learn = fv.unet_learner(
     data,
     arch,
     wd=wd,
-    loss_func=base_loss,
+    loss_func=custom_loss,
     blur=False,
     norm_type=fv.NormType.Weight,
     pretrained=False,
@@ -78,6 +84,12 @@ learn.save("first")
 
 learn.fit_one_cycle(1, slice(1e-5, lr), pct_start=0.9)
 learn.save("second")
+
+#%% 
+
+
+learn.fit_one_cycle(5, slice(1e-5, lr), pct_start=0.9)
+learn.save("third")
 
 # %%
 learn.show_results(rows=1, imgsize=5)
