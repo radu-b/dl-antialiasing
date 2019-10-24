@@ -69,8 +69,8 @@ fv.gc.collect()
 
 # %%
 
-learn.lr_find()
-learn.recorder.plot()
+# learn.lr_find()
+# learn.recorder.plot()
 
 #%%
 
@@ -78,18 +78,18 @@ lr = 1e-3
 
 learn.unfreeze()
 learn.fit_one_cycle(4, slice(1e-5, lr), pct_start=0.9)
-learn.save("first")
+learn.save("first-d")
 
 #%%
 
 learn.fit_one_cycle(4, slice(1e-5, lr), pct_start=0.9)
-learn.save("second")
+learn.save("second-d")
 
 #%%
 
 
 learn.fit_one_cycle(5, slice(1e-5, lr), pct_start=0.9)
-learn.save("third")
+learn.save("third-d")
 
 # %%
 learn.show_results(rows=1, imgsize=5)
@@ -108,7 +108,7 @@ for test_file in fv.get_image_files("data/test/x"):
     predicted[predicted < 0] = 0
     predicted[predicted > 1] = 1
 
-    transforms.ToPILImage()(predicted).save(f"data/test/y/{test_file.name}")
+    transforms.ToPILImage()(predicted).save(f"data/test/y_hat/{test_file.name}")
 
 
 # %%

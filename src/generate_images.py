@@ -63,7 +63,7 @@ def random_text():
 
 
 def random_image():
-    font_size = random.randint(30, 80)
+    font_size = random.randint(20, 80)
     font = ImageFont.truetype(random.choice(fonts), font_size)
     image = Image.new("L", (200, 200), color=(255))
     draw = ImageDraw.Draw(image)
@@ -77,7 +77,7 @@ def random_image():
 
 #%%
 
-random.seed(3)
+random.seed(4)
 
 for index in range(5000):
     if index % 100 == 0:
@@ -85,7 +85,7 @@ for index in range(5000):
 
     image = random_image()
     image.save(f"data/train/y/{index}.png")
-    image.convert("1", dither=0).save(f"data/train/x/{index}.png")
+    image.convert("1", dither=(index % 2)).save(f"data/train/x/{index}.png")
 
 
 # %%
