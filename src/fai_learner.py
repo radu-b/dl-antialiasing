@@ -14,7 +14,7 @@ path_y = "data/train/y"
 #%%
 
 bs, size = 32, 200
-arch = fv.models.resnet34
+arch = fv.models.resnet18
 
 src = fv.ImageImageList.from_folder(path_x).split_by_rand_pct(0.1, seed=42)
 
@@ -82,10 +82,10 @@ learn.save("first")
 
 #%%
 
-learn.fit_one_cycle(1, slice(1e-5, lr), pct_start=0.9)
+learn.fit_one_cycle(4, slice(1e-5, lr), pct_start=0.9)
 learn.save("second")
 
-#%% 
+#%%
 
 
 learn.fit_one_cycle(5, slice(1e-5, lr), pct_start=0.9)
