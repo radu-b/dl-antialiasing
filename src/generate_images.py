@@ -1,5 +1,5 @@
 #%%
-from PIL import Image, ImageDraw, ImageDraw2, ImageFont
+from PIL import Image, ImageDraw, ImageFont
 import string
 import random
 
