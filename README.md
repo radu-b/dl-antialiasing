@@ -16,6 +16,14 @@ Here are some examples, which are ideally viewed without browser scaling. They s
 ![Output](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y_hat/11.png)
 ![Truth](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y/11.png)
 
+## Details
+
 The algorithm uses a UNet based on ResNet18.
 
+## Running
+
 Requires Python 3.7, pytorch 1.3.0, fastai 1.0, Pillow 3.1.
+
+The script `src/generate_images.py` will generate training images in `data/train`.
+
+Then you can use `src/fai_learner.py` to train the model and process the test images from `data/test/`.

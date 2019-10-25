@@ -7,5 +7,7 @@
     },
     "search.exclude": {
         "data/train": true
-    }
+    },
+    "spellright.language": [],
+    "spellright.documentTypes": []
 }
