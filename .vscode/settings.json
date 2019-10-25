@@ -1,0 +1,11 @@
+{
+    "files.exclude": {
+        "data/train": true
+    },
+    "files.watcherExclude": {
+        "**/data/train/**": true
+    },
+    "search.exclude": {
+        "data/train": true
+    }
+}

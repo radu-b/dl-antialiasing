@@ -62,7 +62,7 @@ def random_text():
     )
 
 
-def random_image():
+def random_text_image():
     font_size = random.randint(20, 80)
     font = ImageFont.truetype(random.choice(fonts), font_size)
     image = Image.new("L", (200, 200), color=(255))
@@ -75,6 +75,17 @@ def random_image():
     return image
 
 
+def random_figure():
+    image = Image.new("L", (800, 800), color=(255))
+    draw = ImageDraw.Draw(image)
+
+    for i in range(4):
+        coords = [random.randint(0, 800) for c in range(4)]
+        draw.line(coords, fill=(0), width=random.randint(4, 50))
+
+    return image.resize((200, 200), resample=Image.BICUBIC)
+
+
 #%%
 
 random.seed(4)
@@ -83,12 +94,19 @@ for index in range(5000):
     if index % 100 == 0:
         print(100 * index / 5000)
 
-    image = random_image()
+    image = random_text_image()
     image.save(f"data/train/y/{index}.png")
-    image.convert("1", dither=(index % 2)).save(f"data/train/x/{index}.png")
+    image.convert("1", dither=0).save(f"data/train/x/{index}.png")
 
 
 # %%
 
+for index in range(5000, 10000):
+    if index % 100 == 0:
+        print(100 * index / 10000)
+
+    image = random_figure()
+    image.save(f"data/train/y/{index}.png")
+    image.convert("1", dither=0).save(f"data/train/x/{index}.png")
 
 # %%
