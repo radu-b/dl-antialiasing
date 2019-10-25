@@ -8,10 +8,14 @@ Here are some examples, which are ideally viewed without browser scaling. They s
 ![Output](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y_hat/12.png)
 ![Truth](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y/12.png)
 
-![Input](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/x/9.png)
-![Output](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y_hat/9.png)
-![Truth](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y/9.png)
+![Input](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/x/6.png)
+![Output](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y_hat/6.png)
+![Truth](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y/6.png)
 
 ![Input](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/x/11.png)
 ![Output](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y_hat/11.png)
 ![Truth](https://github.com/radu-b/dl-antialiasing/raw/master/data/test/y/11.png)
+
+The algorithm uses a UNet based on ResNet18.
+
+Requires Python 3.7, pytorch 1.3.0, fastai 1.0, Pillow 3.1.
