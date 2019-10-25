@@ -77,13 +77,13 @@ fv.gc.collect()
 lr = 1e-3
 
 learn.unfreeze()
-learn.fit_one_cycle(4, slice(1e-5, lr), pct_start=0.9)
-learn.save("first")
+learn.fit_one_cycle(10, slice(1e-5, lr), pct_start=0.9)
+learn.save("first2")
 
 #%%
 
-learn.fit_one_cycle(4, slice(1e-5, lr), pct_start=0.9)
-learn.save("second")
+learn.fit_one_cycle(10, slice(1e-5, lr), pct_start=0.9)
+learn.save("second2")
 
 #%%
 

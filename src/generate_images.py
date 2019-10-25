@@ -91,7 +91,7 @@ def random_figure():
 random.seed(4)
 
 for index in range(5000):
-    if index % 100 == 0:
+    if index % 500 == 0:
         print(100 * index / 5000)
 
     image = random_text_image()
@@ -102,7 +102,7 @@ for index in range(5000):
 # %%
 
 for index in range(5000, 10000):
-    if index % 100 == 0:
+    if index % 500 == 0:
         print(100 * index / 10000)
 
     image = random_figure()
