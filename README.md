@@ -1,6 +1,6 @@
 # Antialias with Deep Learning
 
-Adds antialiasing (smooth edges) to an image containing black & white (1bit) drawings and text.
+Adds antialiasing (smooth edges) to an image containing black & white (1-bit) drawings and text.
 
 Here are some examples, which are ideally viewed without browser scaling. They show the B&W image, followed by the algorithm output, followed by the ground truth (original image, with proper antialiasing):
 
@@ -26,4 +26,4 @@ Requires Python 3.7, pytorch 1.3.0, fastai 1.0, Pillow 3.1.
 
 The script `src/generate_images.py` will generate training images in `data/train`.
 
-Then you can use `src/fai_learner.py` to train the model and process the test images from `data/test/`.
+Then you can use `src/fai_learner.py` to train the model and process the test images from `data/test`.
